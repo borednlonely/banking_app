@@ -1,7 +1,7 @@
 package Application;
 
 public class Checking extends Account {
-private int debitCardNum;
+private long debitCardNum;
 private int debitPin;
     public Checking(String name, String socialSN, double deposit){
         super(name,socialSN,deposit);
@@ -11,12 +11,22 @@ private int debitPin;
 
 
     }
+    // load existing accounts
+    public Checking(String accountNumber, String name, String socialSN, double balance, long debitCardNum, int debitPin) {
+        super(accountNumber, name, socialSN, balance);
+        this.debitCardNum = debitCardNum;
+        this.debitPin = debitPin;
+    }
+
     // generates debit card # and pin
     private void setDebitCard(){
-        debitCardNum = (int)(Math.random() * Math.pow(10,15));
+        debitCardNum = (long)(Math.random() * Math.pow(10,15));
         debitPin = (int)(Math.random() * Math.pow(10,4));
 
     }
+
+    public long getDebitCardNum() {return debitCardNum; }
+    public int getDebitPin() {return debitPin; }
 
     public void info(){
         super.info();

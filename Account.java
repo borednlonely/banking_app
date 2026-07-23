@@ -19,7 +19,7 @@ public abstract class Account {
 
     private Scanner scan;
 
-    // constructor
+    // Create brand new acc
     public Account(String name, String socialSN, double deposit) {
 
         this.name = name;
@@ -27,10 +27,18 @@ public abstract class Account {
         balance = deposit;
         this.accountNumber = setAccountNumber();
 
-
     }
 
+    // load existing accounts
+    public Account(String accountNumber, String name, String socialSN, double balance) {
+        this.accountNumber = accountNumber;
+        this.name = name;
+        this.socialSN = socialSN;
+        this.balance = balance;
+    }
 
+    public double getBalance(){return balance;}
+    public String getSocialSN(){return socialSN;}
     // creates account num for user
     private String setAccountNumber() {
         index++;
@@ -56,11 +64,13 @@ public abstract class Account {
         balance = balance + input;
         System.out.println("DEPOSITING $" + input);
         System.out.printf("CURRENT BALANCE IS: $%.2f\n",balance);
+        db.updateBalance(accountNumber, balance);
     }
     public void withdraw(double input){
         balance = balance - input;
         System.out.println("WITHDRAWING $" + input);
         System.out.printf("CURRENT BALANCE IS: $%.2f\n",balance);
+        db.updateBalance(accountNumber, balance);
     }
 
     public void transfer(String location, double amount){
